@@ -12,10 +12,11 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded",
 )
+
 st.header("Diabetic Retinopathy Stages Prediction")
 
 
-col1, col2 = st.columns([2,3], gap="large")
+col1, col2, col3 = st.columns([3,2,2], gap="large")
 
 
 with col1:
@@ -61,14 +62,18 @@ with col1:
             )
             st.altair_chart(chart, use_container_width=True)
 
-            st.write(no_dr,mild,moderate,severe,pdr)
-
-
 with col2:
     if uploaded_file is not None:
+        st.markdown('<div style="text-align:center">Original Image</div>', unsafe_allow_html=True)
         preprocessed_img = crop(opencv_image)
-       
-        st.image(preprocessed_img, channels="RGB", width=700)
+        st.image(preprocessed_img, channels="RGB")
+
+with col3:
+    if uploaded_file is not None:
+        if button:
+            st.markdown('<div style="text-align:center">Preprocessed Image</div>', unsafe_allow_html=True)
+            preprocessed_img = preprocess(opencv_image)       
+            st.image(preprocessed_img, channels="RGB")
         
 
 
