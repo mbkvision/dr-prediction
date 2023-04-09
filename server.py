@@ -43,13 +43,13 @@ with col1:
             })
 
             chart = alt.Chart(chart_data).mark_bar(width=50).encode(
-                x=alt.X("Stages", sort=["None","Mild","Moderate", "Severe", "Proliferative"]),
-                y="predictions",
-                color=alt.condition(
-                    alt.datum.predictions > 90,
-                    alt.value('red'),
-                    alt.value('blue')
-                )
+                x=alt.X("Stages", sort=["None","Mild","Moderate", "Severe", "Proliferative"],
+                axis=alt.Axis(labelAngle=45, labelAlign='left')),
+                y=alt.Y("predictions", title="Predictions (%)"),
+                color=alt.Color("predictions", scale=alt.Scale(
+                    domain=[0, 20, 90, 100],
+                    range=['green', 'blue', 'blue', 'red']
+                ))
             ).properties(
                 title="Prediction Results",
  
